@@ -10,6 +10,8 @@
 
 @interface ViewController : UIViewController
 
+- (IBAction)buttonPressed:(id)sender;
+- (IBAction)stopButtonPressed:(id)sender;
 
 @end
 

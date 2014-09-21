@@ -40,6 +40,7 @@
 		B221CCF019CF13B50013656B /* PlatformTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlatformTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B221CCF519CF13B50013656B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B221CCF619CF13B50013656B /* PlatformTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlatformTests.m; sourceTree = "<group>"; };
+		B221CD0019CF1B240013656B /* ProgramStates.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProgramStates.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +90,7 @@
 				B221CCE719CF13B50013656B /* Images.xcassets */,
 				B221CCE919CF13B50013656B /* LaunchScreen.xib */,
 				B221CCDA19CF13B50013656B /* Supporting Files */,
+				B221CD0019CF1B240013656B /* ProgramStates.h */,
 			);
 			path = Platform;
 			sourceTree = "<group>";
