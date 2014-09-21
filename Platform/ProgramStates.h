@@ -26,4 +26,18 @@ enum ProgramStates {
     
 };
 
+@interface ProgramStatesMethods : NSObject {}
+
++ (NSString *)getStateNameForState:(enum ProgramStates)state;
+
+@end
+
+
+
+
+
+
+
+
+
 #endif

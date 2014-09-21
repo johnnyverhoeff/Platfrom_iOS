@@ -80,7 +80,9 @@
     NSError *error;
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:&error];
     
-    NSLog(@"program_state: %@",[json objectForKey:@"program_state"]);
+    enum ProgramStates state = [[json objectForKey:@"program_state"] integerValue];
+    
+    NSLog(@"program_state: %@", [ProgramStatesMethods getStateNameForState:state]);
     
 }
 
