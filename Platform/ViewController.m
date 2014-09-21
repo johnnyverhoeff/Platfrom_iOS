@@ -88,6 +88,13 @@
     if (requestError != nil) {
         NSLog(@"Something went wrong with the GET request");
         NSLog(@"%@", requestError);
+        
+        NSString *error_message = [NSString stringWithFormat:@"%i: %@", requestError.code, [requestError.userInfo objectForKey:@"NSLocalizedDescription"]];
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Something went wrong!" message: error_message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        
+        [alert show];
+        
         return;
     }
     
