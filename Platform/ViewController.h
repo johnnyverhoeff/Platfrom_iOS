@@ -13,5 +13,8 @@
 - (IBAction)buttonPressed:(id)sender;
 - (IBAction)stopButtonPressed:(id)sender;
 
+
+- (IBAction)getStatus:(id)sender;
+
 @end
 

@@ -61,4 +61,28 @@
     NSLog(@"Stop button pressed");
     [self sendProgramState:none];
 }
+
+- (IBAction)getStatus:(id)sender {
+    NSLog(@"get status button pressed");
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://192.168.215.177/json"] cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:10];
+    
+    [request setHTTPMethod:@"GET"];
+    
+    NSError *requestError;
+    NSURLResponse *urlResponse = nil;
+    
+    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&requestError];
+    
+    NSLog(@"url response:");
+    NSLog(@"%@", response);
+    
+    NSError *error;
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:&error];
+    
+    NSLog(@"program_state: %@",[json objectForKey:@"program_state"]);
+    
+}
+
+
 @end
