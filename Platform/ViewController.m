@@ -7,7 +7,12 @@
 //
 
 #import "ViewController.h"
+#import "SettingsViewController.h"
+
 #import "ProgramStates.h"
+
+
+
 @interface ViewController ()
 @end
 
@@ -15,10 +20,24 @@
     NSString *url;
 }
 
+- (IBAction)cancelSettings:(UIStoryboardSegue *)segue {
+    NSLog(@"Cancel settings in main viewcontroller");
+    NSLog(@"Url is: %@", url);
+}
+
+- (IBAction)saveSettings:(UIStoryboardSegue *)segue {
+    NSLog(@"Save settings in main viewcontroller");
+    
+    SettingsViewController *controller = segue.sourceViewController;
+    url = controller.url;
+    NSLog(@"The new url is: %@", url);
+    
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    url = @"http://192.168.215.177/";
+    url = @"http://192.168.215.177";
     
 }
 
@@ -38,7 +57,7 @@
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     
-    [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@web_control", url]]];
+    [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/web_control", url]]];
     [request setHTTPMethod:@"POST"];
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
@@ -68,7 +87,7 @@
 - (IBAction)getStatus:(id)sender {
     NSLog(@"get status button pressed");
     
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@json", url]] cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:10];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/json", url]] cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:10];
     
     [request setHTTPMethod:@"GET"];
     
@@ -96,6 +115,21 @@
     NSLog(@"program_state: %@", state_name);
     
     [self programStateLabel].text = state_name;
+    
+}
+
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    
+    if ([segue.identifier isEqualToString:@"settingsSegue"]) {
+        UINavigationController *navcontroller = segue.destinationViewController;
+        SettingsViewController *controller = (SettingsViewController *)navcontroller.topViewController;
+        controller.url = url;
+    }
     
 }
 

@@ -15,6 +15,7 @@
 		B221CCEB19CF13B50013656B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B221CCE919CF13B50013656B /* LaunchScreen.xib */; };
 		B221CCF719CF13B50013656B /* PlatformTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B221CCF619CF13B50013656B /* PlatformTests.m */; };
 		B221CD0219CF25EC0013656B /* ProgramStates.m in Sources */ = {isa = PBXBuildFile; fileRef = B221CD0119CF25EC0013656B /* ProgramStates.m */; };
+		B221CD0519CF47770013656B /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B221CD0419CF47770013656B /* SettingsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +44,8 @@
 		B221CCF619CF13B50013656B /* PlatformTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlatformTests.m; sourceTree = "<group>"; };
 		B221CD0019CF1B240013656B /* ProgramStates.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProgramStates.h; sourceTree = "<group>"; };
 		B221CD0119CF25EC0013656B /* ProgramStates.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgramStates.m; sourceTree = "<group>"; };
+		B221CD0319CF47770013656B /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		B221CD0419CF47770013656B /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +97,8 @@
 				B221CCDA19CF13B50013656B /* Supporting Files */,
 				B221CD0019CF1B240013656B /* ProgramStates.h */,
 				B221CD0119CF25EC0013656B /* ProgramStates.m */,
+				B221CD0319CF47770013656B /* SettingsViewController.h */,
+				B221CD0419CF47770013656B /* SettingsViewController.m */,
 			);
 			path = Platform;
 			sourceTree = "<group>";
@@ -226,6 +231,7 @@
 			files = (
 				B221CCE319CF13B50013656B /* ViewController.m in Sources */,
 				B221CCE019CF13B50013656B /* AppDelegate.m in Sources */,
+				B221CD0519CF47770013656B /* SettingsViewController.m in Sources */,
 				B221CD0219CF25EC0013656B /* ProgramStates.m in Sources */,
 				B221CCDD19CF13B50013656B /* main.m in Sources */,
 			);
