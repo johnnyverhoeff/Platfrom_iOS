@@ -14,10 +14,12 @@
 
 
 @interface ViewController ()
+
 @end
 
 @implementation ViewController {
     NSString *url;
+    NSArray *_waterSensors;
 }
 
 #pragma mark - Action buttons from settings viewcontroller
@@ -42,6 +44,11 @@
     [super viewDidLoad];
     
     url = @"http://192.168.215.177";
+    
+    _waterSensors = @[@"High boat sensor", @"Low boat sensor", @"Under water sensor"];
+    
+    self.waterSensorPicker.delegate = self;
+    self.waterSensorPicker.dataSource = self;
     
 }
 
@@ -71,6 +78,10 @@
     NSLog(@"get status button pressed");
     
     [self getProgramState];
+}
+
+- (IBAction)selectWaterSensor:(id)sender {
+    self.waterSensorPicker.hidden = false;
 }
 
 #pragma mark - Get and Post methods
@@ -113,11 +124,7 @@
     [self programStateLabel].text = state_name;
 }
 
-- (void)sendProgramState:(enum ProgramStates)programState
-{
-    // post params to send platform to upper limit switch
-    NSString *post = [NSString stringWithFormat:@"program_state=%i", programState];
-    
+- (void)sendPostRequestWithData:(NSString *)post {
     NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
     
     NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
@@ -138,6 +145,19 @@
         NSLog(@"Connection could not be made");
 }
 
+- (void)sendProgramState:(enum ProgramStates)programState {
+    // post params to send platform to upper limit switch
+    NSString *post = [NSString stringWithFormat:@"program_state=%i", programState];
+    
+    [self sendPostRequestWithData:post];
+}
+
+- (void)sendActiveWaterSensor:(int)activeWaterSensor {
+    NSString *post = [NSString stringWithFormat:@"water_sensor=%i", activeWaterSensor];
+    
+    [self sendPostRequestWithData:post];
+}
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -153,5 +173,26 @@
     
 }
 
+#pragma mark - Picker view delegate and data source 
+
+- (int)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+- (int)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return _waterSensors.count;
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    return _waterSensors[row];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    NSLog(@"Row selected: %i", row);
+    NSLog(@"Selected sensor: %@", _waterSensors[row]);
+    pickerView.hidden = true;
+    
+    [self sendActiveWaterSensor:row];
+}
 
 @end

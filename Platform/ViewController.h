@@ -8,15 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 
 - (IBAction)buttonPressed:(id)sender;
 - (IBAction)stopButtonPressed:(id)sender;
 
-
 - (IBAction)getStatus:(id)sender;
 
+- (IBAction)selectWaterSensor:(id)sender;
+
 @property (strong, nonatomic) IBOutlet UILabel *programStateLabel;
+
+
+@property (strong, nonatomic) IBOutlet UIPickerView *waterSensorPicker;
+
 
 
 @end
