@@ -20,6 +20,8 @@
     NSString *url;
 }
 
+#pragma mark - Action buttons from settings viewcontroller
+
 - (IBAction)cancelSettings:(UIStoryboardSegue *)segue {
     NSLog(@"Cancel settings in main viewcontroller");
     NSLog(@"Url is: %@", url);
@@ -34,6 +36,8 @@
     
 }
 
+#pragma mark - standard inherited methods
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -46,30 +50,9 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)sendProgramState:(enum ProgramStates)programState
-{
-    // post params to send platform to upper limit switch
-    NSString *post = [NSString stringWithFormat:@"program_state=%i", programState];
-    
-    NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-    
-    NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
-    
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    
-    [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/web_control", url]]];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    [request setHTTPBody:postData];
-    
-    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-    
-    if (conn)
-        NSLog(@"Connection succesful");
-    else
-        NSLog(@"Connection could not be made");
-}
+
+#pragma mark - Button methods
+
 
 - (IBAction)buttonPressed:(id)sender {
     NSLog(@"Button pressed");
@@ -87,6 +70,12 @@
 - (IBAction)getStatus:(id)sender {
     NSLog(@"get status button pressed");
     
+    [self getProgramState];
+}
+
+#pragma mark - Get and Post methods
+
+- (void)getProgramState {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/json", url]] cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:10];
     
     [request setHTTPMethod:@"GET"];
@@ -115,7 +104,31 @@
     NSLog(@"program_state: %@", state_name);
     
     [self programStateLabel].text = state_name;
+}
+
+- (void)sendProgramState:(enum ProgramStates)programState
+{
+    // post params to send platform to upper limit switch
+    NSString *post = [NSString stringWithFormat:@"program_state=%i", programState];
     
+    NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+    
+    NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    
+    [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/web_control", url]]];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPBody:postData];
+    
+    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    if (conn)
+        NSLog(@"Connection succesful");
+    else
+        NSLog(@"Connection could not be made");
 }
 
 #pragma mark - Navigation
