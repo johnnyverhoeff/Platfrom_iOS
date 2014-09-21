@@ -9,10 +9,23 @@
 #import "ViewController.h"
 #import "ProgramStates.h"
 @interface ViewController ()
-
 @end
 
-@implementation ViewController
+@implementation ViewController {
+    NSString *url;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    url = @"http://192.168.215.177/";
+    
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 
 - (void)sendProgramState:(enum ProgramStates)programState
 {
@@ -25,7 +38,7 @@
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     
-    [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://192.168.215.177/web_control"]]];
+    [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@web_control", url]]];
     [request setHTTPMethod:@"POST"];
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
@@ -37,16 +50,6 @@
         NSLog(@"Connection succesful");
     else
         NSLog(@"Connection could not be made");
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (IBAction)buttonPressed:(id)sender {
@@ -65,7 +68,7 @@
 - (IBAction)getStatus:(id)sender {
     NSLog(@"get status button pressed");
     
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://192.168.215.177/json"] cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:10];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@json", url]] cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:10];
     
     [request setHTTPMethod:@"GET"];
     
@@ -73,6 +76,12 @@
     NSURLResponse *urlResponse = nil;
     
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&requestError];
+    
+    if (requestError != nil) {
+        NSLog(@"Something went wrong with the GET request");
+        NSLog(@"%@", requestError);
+        return;
+    }
     
     NSLog(@"url response:");
     NSLog(@"%@", response);
@@ -82,7 +91,11 @@
     
     enum ProgramStates state = [[json objectForKey:@"program_state"] integerValue];
     
-    NSLog(@"program_state: %@", [ProgramStatesMethods getStateNameForState:state]);
+    NSString *state_name = [ProgramStatesMethods getStateNameForState:state];
+    
+    NSLog(@"program_state: %@", state_name);
+    
+    [self programStateLabel].text = state_name;
     
 }
 

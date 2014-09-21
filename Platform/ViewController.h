@@ -16,5 +16,8 @@
 
 - (IBAction)getStatus:(id)sender;
 
+@property (strong, nonatomic) IBOutlet UILabel *programStateLabel;
+
+
 @end
 
