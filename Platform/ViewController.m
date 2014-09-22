@@ -9,9 +9,7 @@
 #import "ViewController.h"
 #import "SettingsViewController.h"
 
-#import "ProgramStates.h"
-
-
+#import "Platform.h"
 
 @interface ViewController ()
 
@@ -100,7 +98,7 @@
         NSLog(@"Something went wrong with the GET request");
         NSLog(@"%@", requestError);
         
-        NSString *error_message = [NSString stringWithFormat:@"%i: %@", requestError.code, [requestError.userInfo objectForKey:@"NSLocalizedDescription"]];
+        NSString *error_message = [NSString stringWithFormat:@"%li: %@", (long)requestError.code, [requestError.userInfo objectForKey:@"NSLocalizedDescription"]];
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Something went wrong!" message: error_message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         
@@ -115,9 +113,9 @@
     NSError *error;
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:&error];
     
-    enum ProgramStates state = [[json objectForKey:@"program_state"] integerValue];
+    NSInteger state = [[json objectForKey:@"program_state"] integerValue];
     
-    NSString *state_name = [ProgramStatesMethods getStateNameForState:state];
+    NSString *state_name = [Platform getStateNameForState:state];
     
     NSLog(@"program_state: %@", state_name);
     
@@ -127,7 +125,7 @@
 - (void)sendPostRequestWithData:(NSString *)post {
     NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
     
-    NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+    NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     
@@ -145,15 +143,15 @@
         NSLog(@"Connection could not be made");
 }
 
-- (void)sendProgramState:(enum ProgramStates)programState {
+- (void)sendProgramState:(enum program_states)programState {
     // post params to send platform to upper limit switch
     NSString *post = [NSString stringWithFormat:@"program_state=%i", programState];
     
     [self sendPostRequestWithData:post];
 }
 
-- (void)sendActiveWaterSensor:(int)activeWaterSensor {
-    NSString *post = [NSString stringWithFormat:@"water_sensor=%i", activeWaterSensor];
+- (void)sendActiveWaterSensor:(NSInteger)activeWaterSensor {
+    NSString *post = [NSString stringWithFormat:@"water_sensor=%li", (long)activeWaterSensor];
     
     [self sendPostRequestWithData:post];
 }
@@ -175,11 +173,11 @@
 
 #pragma mark - Picker view delegate and data source 
 
-- (int)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 1;
 }
 
-- (int)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     return _waterSensors.count;
 }
 
@@ -188,7 +186,7 @@
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    NSLog(@"Row selected: %i", row);
+    NSLog(@"Row selected: %li", (long)row);
     NSLog(@"Selected sensor: %@", _waterSensors[row]);
     pickerView.hidden = true;
     

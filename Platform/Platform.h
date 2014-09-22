@@ -1,15 +1,15 @@
 //
-//  ProgramStates.h
+//  Platform.h
 //  Platform
 //
-//  Created by Johnny Verhoeff on 21-09-14.
+//  Created by Johnny Verhoeff on 22-09-14.
 //  Copyright (c) 2014 Johnny Verhoeff. All rights reserved.
 //
 
-#ifndef Platform_ProgramStates_h
-#define Platform_ProgramStates_h
+#ifndef Platform_Platform_h
+#define Platform_Platform_h
 
-enum ProgramStates {
+enum program_states {
     none = 0,
     reach_active_water_sensor,
     reach_and_control_vlonder_on_active_water_sensor,
@@ -26,18 +26,10 @@ enum ProgramStates {
     
 };
 
-@interface ProgramStatesMethods : NSObject {}
+@interface Platform : NSObject
 
-+ (NSString *)getStateNameForState:(enum ProgramStates)state;
++ (NSString *)getStateNameForState:(enum program_states)state;
 
 @end
-
-
-
-
-
-
-
-
 
 #endif

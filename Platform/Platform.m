@@ -1,17 +1,17 @@
 //
-//  ProgramStates.m
+//  Platform.m
 //  Platform
 //
-//  Created by Johnny Verhoeff on 21-09-14.
+//  Created by Johnny Verhoeff on 22-09-14.
 //  Copyright (c) 2014 Johnny Verhoeff. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "ProgramStates.h"
+#import "Platform.h"
 
-@implementation ProgramStatesMethods
+@implementation Platform
 
-+ (NSString *)getStateNameForState:(enum ProgramStates)state {
++ (NSString *)getStateNameForState:(enum program_states)state {
     
     switch (state) {
         case none:
@@ -47,5 +47,8 @@
             
     }
 }
+
+
+
 
 @end
