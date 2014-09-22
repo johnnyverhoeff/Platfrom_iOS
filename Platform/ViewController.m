@@ -78,7 +78,10 @@
     NSLog(@"get status button pressed");
     
     NSString *state_name = [Platform getProgramState];
+    NSString *active_water_sensor = [Platform getActiveWaterSensor];
+    
     self.programStateLabel.text = state_name;
+    self.activeWaterSensorLabel.text = active_water_sensor;
 }
 
 - (IBAction)selectWaterSensor:(id)sender {

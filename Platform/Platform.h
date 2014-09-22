@@ -38,6 +38,8 @@ enum program_states {
 
 + (NSString *)getProgramState;
 
++ (NSString *)getActiveWaterSensor;
+
 + (void)setProgramStateTo:(enum program_states)newState;
 
 + (void)setWaterSensorTo:(NSInteger)newSensor;

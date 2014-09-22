@@ -20,6 +20,7 @@
 - (IBAction)selectWaterSensor:(id)sender;
 
 @property (strong, nonatomic) IBOutlet UILabel *programStateLabel;
+@property (strong, nonatomic) IBOutlet UILabel *activeWaterSensorLabel;
 
 @property (strong, nonatomic) IBOutlet UIPickerView *waterSensorPicker;
 

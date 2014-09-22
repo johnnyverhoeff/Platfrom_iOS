@@ -73,7 +73,7 @@ static NSArray *waterSensors;
     }
 }
 
-+ (NSString *)getProgramState {
++ (NSDictionary *)getStatusData {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/json", url]] cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:10];
     
     [request setHTTPMethod:@"GET"];
@@ -93,22 +93,46 @@ static NSArray *waterSensors;
         
         [alert show];
         
-        return [self getStateNameForState:none];
+        return [NSDictionary dictionary];
     }
     
     NSLog(@"url response:");
     NSLog(@"%@", response);
     
     NSError *error;
-    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:&error];
+    return [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:&error];
+}
+
++ (NSString *)getProgramState {
+    NSDictionary *data = [self getStatusData];
     
-    NSInteger state = [[json objectForKey:@"program_state"] integerValue];
+    if ([data count] == 0) {
+        NSLog(@"No data received");
+        return [self getStateNameForState:none];
+    }
+    
+    NSInteger state = [[data objectForKey:@"program_state"] integerValue];
     
     NSString *state_name = [Platform getStateNameForState:state];
     
     NSLog(@"program_state: %@", state_name);
     
     return state_name;
+}
+
++ (NSString *)getActiveWaterSensor {
+    NSDictionary *data = [self getStatusData];
+    
+    if ([data count] == 0) {
+        NSLog(@"No data received");
+        return @"None";
+    }
+    
+    NSString *active_water_sensor = [[data objectForKey:@"vlonder"] objectForKey:@"active_water_sensor"];
+    
+    NSLog(@"Active water sensor: %@", active_water_sensor);
+    
+    return active_water_sensor;
 }
 
 + (void)sendPostRequestWithData:(NSString *)post {
