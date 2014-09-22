@@ -19,10 +19,7 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *programStateLabel;
 
-
 @property (strong, nonatomic) IBOutlet UIPickerView *waterSensorPicker;
-
-
 
 @end
 

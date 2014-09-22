@@ -28,7 +28,19 @@ enum program_states {
 
 @interface Platform : NSObject
 
++ (NSString *)getUrl;
++ (void)setUrlTo:(NSString *)newUrl;
+
++ (NSArray *)getWaterSensors;
++ (void)setWaterSensorsTo:(NSArray *)newSensors;
+
 + (NSString *)getStateNameForState:(enum program_states)state;
+
++ (NSString *)getProgramState;
+
++ (void)setProgramStateTo:(enum program_states)newState;
+
++ (void)setWaterSensorTo:(NSInteger)newSensor;
 
 @end
 
