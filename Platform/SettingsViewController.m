@@ -43,8 +43,6 @@
 #pragma mark - Text Field Delegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [textField resignFirstResponder];
-    
     [self performSegueWithIdentifier:@"saveSettings" sender:self];
     
     return YES;

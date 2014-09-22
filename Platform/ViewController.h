@@ -10,7 +10,9 @@
 
 @interface ViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 
-- (IBAction)buttonPressed:(id)sender;
+- (IBAction)reachUpperLSButton:(id)sender;
+- (IBAction)reachLowerLSButton:(id)sender;
+
 - (IBAction)stopButtonPressed:(id)sender;
 
 - (IBAction)getStatus:(id)sender;

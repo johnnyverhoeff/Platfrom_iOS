@@ -57,12 +57,16 @@
 #pragma mark - Button methods
 
 
-- (IBAction)buttonPressed:(id)sender {
-    NSLog(@"Button pressed");
-    
-    NSLog(@"Attempt to send HTTP Post");
+- (IBAction)reachUpperLSButton:(id)sender {
+    NSLog(@"reachUpperLSButton pressed");
     
     [Platform setProgramStateTo:reach_upper_limit_switch];
+}
+
+- (IBAction)reachLowerLSButton:(id)sender {
+    NSLog(@"reachUpperLSButton pressed");
+    
+    [Platform setProgramStateTo:reach_lower_limit_switch];
 }
 
 - (IBAction)stopButtonPressed:(id)sender {
