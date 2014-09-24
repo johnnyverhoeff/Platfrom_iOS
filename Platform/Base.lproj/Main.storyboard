@@ -42,9 +42,6 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <pickerView hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2w9-pq-NnY">
-                                <rect key="frame" x="0.0" y="318" width="320" height="162"/>
-                            </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FFW-r2-TlX">
                                 <rect key="frame" x="88" y="184" width="144" height="30"/>
                                 <state key="normal" title="Select water sensor">
@@ -106,7 +103,6 @@
                     <connections>
                         <outlet property="activeWaterSensorLabel" destination="7TF-VO-LcT" id="LSL-68-TRN"/>
                         <outlet property="programStateLabel" destination="5UZ-M4-X6M" id="jCO-Lc-fd3"/>
-                        <outlet property="waterSensorPicker" destination="2w9-pq-NnY" id="57g-Y0-Sy8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>

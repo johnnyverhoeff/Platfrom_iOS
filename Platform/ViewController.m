@@ -41,11 +41,7 @@
     [Platform setUrlTo:@"http://192.168.215.177"];
     
     NSArray *waterSensors = @[@"High boat sensor", @"Low boat sensor", @"Under water sensor"];
-    [Platform setWaterSensorsTo:waterSensors];
-    
-    self.waterSensorPicker.delegate = self;
-    self.waterSensorPicker.dataSource = self;
-    
+    [Platform setWaterSensorsTo:waterSensors];    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -85,7 +81,12 @@
 }
 
 - (IBAction)selectWaterSensor:(id)sender {
-    self.waterSensorPicker.hidden = false;
+    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Pick a water sensor" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:[Platform getWaterSensors][0], [Platform getWaterSensors][1], [Platform getWaterSensors][2], nil];
+    
+    actionSheet.tag = 1;
+    
+    [actionSheet showInView:[UIApplication sharedApplication].keyWindow];
 }
 
 #pragma mark - Navigation
@@ -103,26 +104,18 @@
     
 }
 
-#pragma mark - Picker view delegate and data source 
+#pragma mark - Action Sheet delegate
 
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return 1;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return [Platform getWaterSensors].count;
-}
-
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    return [Platform getWaterSensors][row];
-}
-
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    NSLog(@"Row selected: %li", (long)row);
-    NSLog(@"Selected sensor: %@", [Platform getWaterSensors][row]);
-    pickerView.hidden = true;
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (actionSheet.tag != 1)
+        return;
     
-    [Platform setWaterSensorTo:row];
+    if (buttonIndex >= [Platform getWaterSensors].count)
+        return;
+    
+    // Needs testing !!
+    [Platform setWaterSensorTo:buttonIndex];
 }
+
 
 @end

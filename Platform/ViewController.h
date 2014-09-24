@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
+@interface ViewController : UIViewController <UIActionSheetDelegate>
 
 - (IBAction)reachUpperLSButton:(id)sender;
 - (IBAction)reachLowerLSButton:(id)sender;
@@ -21,8 +21,6 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *programStateLabel;
 @property (strong, nonatomic) IBOutlet UILabel *activeWaterSensorLabel;
-
-@property (strong, nonatomic) IBOutlet UIPickerView *waterSensorPicker;
 
 @end
 
