@@ -24,7 +24,7 @@
     return self;
 }
 
-#pragma mark - Other stuff
+#pragma mark - alert methods
 
 - (void)showAlertWithError:(NSError *)error {
     NSString *error_message = [NSString stringWithFormat:@"%li: %@", (long)error.code, [error.userInfo objectForKey:@"NSLocalizedDescription"]];
@@ -39,6 +39,8 @@
     
     [alert show];
 }
+
+#pragma mark - Translate enum to string
 
 - (NSString *)getStateNameForState:(enum program_states)state {
     
@@ -77,6 +79,9 @@
     }
 }
 
+
+#pragma mark - GET and POST methods
+
 - (void)requestStatusData {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/json", _url]] cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:5];
     
@@ -88,31 +93,6 @@
         NSLog(@"GET request send succusfully");
     else
         NSLog(@"Error sending GET request");
-    
-    /*NSError *requestError;
-    NSURLResponse *urlResponse = nil;
-    
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&requestError];
-    
-    if (requestError != nil) {
-        NSLog(@"Something went wrong with the GET request");
-        NSLog(@"%@", requestError);
-        
-        [self showAlertWithError:requestError];
-        
-        return [NSDictionary dictionary];
-    }
-    
-    NSLog(@"url response:");
-    NSLog(@"%@", response);
-    
-    NSError *error;
-    return [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:&error];*/
-}
-
-
-- (void)updateStatus {
-    [self requestStatusData];
 }
 
 - (void)sendPostRequestWithData:(NSString *)post {
@@ -137,6 +117,14 @@
         NSLog(@"Error sending POST request");
 }
 
+#pragma mark - public update status method
+
+- (void)updateStatus {
+    [self requestStatusData];
+}
+
+#pragma mark set methods for arduino
+
 - (void)setProgramStateTo:(enum program_states)newState {
     NSString *post = [NSString stringWithFormat:@"program_state=%i", newState];
     
@@ -147,6 +135,17 @@
     NSString *post = [NSString stringWithFormat:@"water_sensor=%li", (long)newSensor];
     
     [self sendPostRequestWithData:post];
+}
+
+#pragma mark Extrapolation from platform data 
+
+- (NSString *)getStateFromDictionary:(NSDictionary *)dict {
+    NSInteger state = [[dict objectForKey:@"program_state"] integerValue];
+    return [self getStateNameForState:state];
+}
+
+- (NSString *)getActiveWaterSensorFromDictionary:(NSDictionary *)dict {
+    return [[dict objectForKey:@"vlonder"] objectForKey:@"active_water_sensor"];
 }
 
 #pragma mark NSURLConnection Delegate Methods
@@ -195,24 +194,22 @@
         NSError *error;
         NSDictionary *platformData = [NSJSONSerialization JSONObjectWithData:_responseData options:kNilOptions error:&error];
         
+        if (error) {
+            NSLog(@"Error from json!: %@", error);
+            [self showAlertWithTitle:@"JSON parse error" andMessage:error.debugDescription];
+            return;
+        }
+        
         id<PlatformStatusUpdateNotifications> strongDelegate = self.delegate;
         
-        NSInteger state = [[platformData objectForKey:@"program_state"] integerValue];
-        NSString *state_name = [self getStateNameForState:state];
-        
-        NSString *active_water_sensor = [[platformData objectForKey:@"vlonder"] objectForKey:@"active_water_sensor"];
-        
-        [strongDelegate platformDidFinishUpdatingProgramState:state_name];
-        [strongDelegate platformDidFinishUpdatingActiveWaterSensor:active_water_sensor];
+        [strongDelegate platformDidFinishUpdatingProgramState:[self getStateFromDictionary:platformData]];
+        [strongDelegate platformDidFinishUpdatingActiveWaterSensor:[self getActiveWaterSensorFromDictionary:platformData]];
         
         
     }
     else {
         NSLog(@"It was from the only post request");
     }
-        
-
-    
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
