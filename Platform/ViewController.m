@@ -41,6 +41,7 @@
     [super viewDidLoad];
     
     platform = [[Platform alloc] initWithStandardWaterSensors];
+    platform.delegate = self;
     
     platform.url = @"http://192.168.215.177";
 }
@@ -73,11 +74,7 @@
 - (IBAction)getStatus:(id)sender {
     NSLog(@"get status button pressed");
     
-    NSString *state_name = [platform getProgramState];
-    NSString *active_water_sensor = [platform getActiveWaterSensor];
-    
-    self.programStateLabel.text = state_name;
-    self.activeWaterSensorLabel.text = active_water_sensor;
+    [platform updateStatus];
 }
 
 - (IBAction)selectWaterSensor:(id)sender {
@@ -115,6 +112,16 @@
     
     // Needs testing !!
     [platform setWaterSensorTo:buttonIndex];
+}
+
+#pragma mark - Platform delegates
+
+- (void)platformDidFinishUpdatingProgramState:(NSString *)state_name {
+    self.programStateLabel.text = state_name;
+}
+
+- (void)platformDidFinishUpdatingActiveWaterSensor:(NSString *)sensor_name {
+    self.activeWaterSensorLabel.text = sensor_name;
 }
 
 

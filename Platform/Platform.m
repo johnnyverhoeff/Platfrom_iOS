@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 
 #import "Platform.h"
+#import "PlatformStatusUpdateNotifications.h"
 
 @implementation Platform
 
@@ -76,12 +77,19 @@
     }
 }
 
-- (NSDictionary *)getStatusData {
+- (void)requestStatusData {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/json", _url]] cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:5];
     
     [request setHTTPMethod:@"GET"];
     
-    NSError *requestError;
+    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    if (conn)
+        NSLog(@"GET request send succusfully");
+    else
+        NSLog(@"Error sending GET request");
+    
+    /*NSError *requestError;
     NSURLResponse *urlResponse = nil;
     
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&requestError];
@@ -99,39 +107,12 @@
     NSLog(@"%@", response);
     
     NSError *error;
-    return [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:&error];
+    return [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:&error];*/
 }
 
-- (NSString *)getProgramState {
-    NSDictionary *data = [self getStatusData];
-    
-    if ([data count] == 0) {
-        NSLog(@"No data received");
-        return [self getStateNameForState:none];
-    }
-    
-    NSInteger state = [[data objectForKey:@"program_state"] integerValue];
-    
-    NSString *state_name = [self getStateNameForState:state];
-    
-    NSLog(@"program_state: %@", state_name);
-    
-    return state_name;
-}
 
-- (NSString *)getActiveWaterSensor {
-    NSDictionary *data = [self getStatusData];
-    
-    if ([data count] == 0) {
-        NSLog(@"No data received");
-        return @"None";
-    }
-    
-    NSString *active_water_sensor = [[data objectForKey:@"vlonder"] objectForKey:@"active_water_sensor"];
-    
-    NSLog(@"Active water sensor: %@", active_water_sensor);
-    
-    return active_water_sensor;
+- (void)updateStatus {
+    [self requestStatusData];
 }
 
 - (void)sendPostRequestWithData:(NSString *)post {
@@ -203,6 +184,34 @@
     // You can parse the stuff in your instance variable now
     
     NSLog(@"connectionDidFinishLoading: %@", _responseData);
+    
+    
+    NSURL *url = connection.currentRequest.URL;
+    NSURL *getUrl = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@%@",_url,@"/json"]];
+    
+    if ([url isEqual:getUrl]) {
+        NSLog(@"It was from the only get request");
+        
+        NSError *error;
+        NSDictionary *platformData = [NSJSONSerialization JSONObjectWithData:_responseData options:kNilOptions error:&error];
+        
+        id<PlatformStatusUpdateNotifications> strongDelegate = self.delegate;
+        
+        NSInteger state = [[platformData objectForKey:@"program_state"] integerValue];
+        NSString *state_name = [self getStateNameForState:state];
+        
+        NSString *active_water_sensor = [[platformData objectForKey:@"vlonder"] objectForKey:@"active_water_sensor"];
+        
+        [strongDelegate platformDidFinishUpdatingProgramState:state_name];
+        [strongDelegate platformDidFinishUpdatingActiveWaterSensor:active_water_sensor];
+        
+        
+    }
+    else {
+        NSLog(@"It was from the only post request");
+    }
+        
+
     
 }
 

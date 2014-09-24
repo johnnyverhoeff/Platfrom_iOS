@@ -44,6 +44,7 @@
 		B221CCF619CF13B50013656B /* PlatformTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlatformTests.m; sourceTree = "<group>"; };
 		B221CD0319CF47770013656B /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		B221CD0419CF47770013656B /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		B2881CC319D318AA00DA2D22 /* PlatformStatusUpdateNotifications.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlatformStatusUpdateNotifications.h; sourceTree = "<group>"; };
 		B2AE909B19D0B05600762193 /* Platform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Platform.h; sourceTree = "<group>"; };
 		B2AE909C19D0B13300762193 /* Platform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Platform.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -99,6 +100,7 @@
 				B221CD0419CF47770013656B /* SettingsViewController.m */,
 				B2AE909B19D0B05600762193 /* Platform.h */,
 				B2AE909C19D0B13300762193 /* Platform.m */,
+				B2881CC319D318AA00DA2D22 /* PlatformStatusUpdateNotifications.h */,
 			);
 			path = Platform;
 			sourceTree = "<group>";

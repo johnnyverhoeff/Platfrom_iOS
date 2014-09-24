@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PlatformStatusUpdateNotifications.h"
 
-@interface ViewController : UIViewController <UIActionSheetDelegate>
+@interface ViewController : UIViewController <UIActionSheetDelegate, PlatformStatusUpdateNotifications>
 
 - (IBAction)reachUpperLSButton:(id)sender;
 - (IBAction)reachLowerLSButton:(id)sender;

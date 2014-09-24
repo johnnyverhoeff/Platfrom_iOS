@@ -9,6 +9,8 @@
 #ifndef Platform_Platform_h
 #define Platform_Platform_h
 
+@protocol PlatformStatusUpdateNotifications;
+
 enum program_states {
     none = 0,
     reach_active_water_sensor,
@@ -26,20 +28,22 @@ enum program_states {
     
 };
 
+
 @interface Platform : NSObject <NSURLConnectionDataDelegate> {
     NSMutableData *_responseData;
 }
+
+
+@property (nonatomic, assign) id<PlatformStatusUpdateNotifications> delegate;
 
 @property (copy) NSString *url;
 @property (copy) NSArray *waterSensors;
 
 - (id)initWithStandardWaterSensors;
 
+- (void)updateStatus;
+
 - (NSString *)getStateNameForState:(enum program_states)state;
-
-- (NSString *)getProgramState;
-
-- (NSString *)getActiveWaterSensor;
 
 - (void)setProgramStateTo:(enum program_states)newState;
 
