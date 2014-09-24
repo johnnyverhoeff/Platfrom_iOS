@@ -33,6 +33,12 @@
     [alert show];
 }
 
+- (void)showAlertWithTitle:(NSString *)title andMessage:(NSString *)message {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message: message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    
+    [alert show];
+}
+
 - (NSString *)getStateNameForState:(enum program_states)state {
     
     switch (state) {
@@ -171,6 +177,12 @@
     // also serves to clear it
     _responseData = [[NSMutableData alloc] init];
     NSLog(@"didReceiveResponse");
+    
+    NSInteger statusCode = ((NSHTTPURLResponse *)response).statusCode;
+    
+    if (statusCode != 200) {
+        [self showAlertWithTitle:@"Wrong HTTP status code" andMessage:[NSHTTPURLResponse localizedStringForStatusCode:statusCode]];
+    }
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
