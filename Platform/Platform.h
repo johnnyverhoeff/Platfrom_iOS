@@ -26,7 +26,7 @@ enum program_states {
     
 };
 
-@interface Platform : NSObject
+@interface Platform : NSObject <NSURLConnectionDataDelegate>
 
 + (NSString *)getUrl;
 + (void)setUrlTo:(NSString *)newUrl;

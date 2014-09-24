@@ -168,6 +168,4 @@ static NSArray *waterSensors;
     [self sendPostRequestWithData:post];
 }
 
-
-
 @end

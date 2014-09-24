@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController <UIActionSheetDelegate>
+@interface ViewController : UIViewController <UIActionSheetDelegate, NSURLConnectionDataDelegate> {
+    NSMutableData *_responseData;
+}
 
 - (IBAction)reachUpperLSButton:(id)sender;
 - (IBAction)reachLowerLSButton:(id)sender;
