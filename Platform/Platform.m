@@ -25,6 +25,14 @@
 
 #pragma mark - Other stuff
 
+- (void)showAlertWithError:(NSError *)error {
+    NSString *error_message = [NSString stringWithFormat:@"%li: %@", (long)error.code, [error.userInfo objectForKey:@"NSLocalizedDescription"]];
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Something went wrong!" message: error_message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    
+    [alert show];
+}
+
 - (NSString *)getStateNameForState:(enum program_states)state {
     
     switch (state) {
@@ -63,7 +71,7 @@
 }
 
 - (NSDictionary *)getStatusData {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/json", _url]] cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:10];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/json", _url]] cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:5];
     
     [request setHTTPMethod:@"GET"];
     
@@ -76,11 +84,7 @@
         NSLog(@"Something went wrong with the GET request");
         NSLog(@"%@", requestError);
         
-        NSString *error_message = [NSString stringWithFormat:@"%li: %@", (long)requestError.code, [requestError.userInfo objectForKey:@"NSLocalizedDescription"]];
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Something went wrong!" message: error_message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        
-        [alert show];
+        [self showAlertWithError:requestError];
         
         return [NSDictionary dictionary];
     }
@@ -195,6 +199,8 @@
     // Check the error var
     NSLog(@"didFailWithError");
     NSLog(@"Error: %@", error);
+    
+    [self showAlertWithError:error];
 }
 
 @end
