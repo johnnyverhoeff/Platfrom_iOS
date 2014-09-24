@@ -15,21 +15,23 @@
 
 @end
 
-@implementation ViewController
+@implementation ViewController {
+    Platform *platform;
+}
 
 #pragma mark - Action buttons from settings viewcontroller
 
 - (IBAction)cancelSettings:(UIStoryboardSegue *)segue {
     NSLog(@"Cancel settings in main viewcontroller");
-    NSLog(@"Url is: %@", [Platform getUrl]);
+    NSLog(@"Url is: %@", platform.url);
 }
 
 - (IBAction)saveSettings:(UIStoryboardSegue *)segue {
     NSLog(@"Save settings in main viewcontroller");
     
     SettingsViewController *controller = segue.sourceViewController;
-    [Platform setUrlTo:controller.url];
-    NSLog(@"The new url is: %@", [Platform getUrl]);
+    platform.url = controller.url;
+    NSLog(@"The new url is: %@", platform.url);
     
 }
 
@@ -38,21 +40,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [Platform setUrlTo:@"http://192.168.215.177"];
+    platform = [[Platform alloc] initWithStandardWaterSensors];
     
-    NSArray *waterSensors = @[@"High boat sensor", @"Low boat sensor", @"Under water sensor"];
-    [Platform setWaterSensorsTo:waterSensors];
+    platform.url = @"http://192.168.215.177";
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-    
-    // Create the request.
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://google.com"]];
-    
-    // Create url connection and fire request
-    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 }
 
 
@@ -61,26 +56,25 @@
 
 - (IBAction)reachUpperLSButton:(id)sender {
     NSLog(@"reachUpperLSButton pressed");
-    
-    [Platform setProgramStateTo:reach_upper_limit_switch];
+    [platform setProgramStateTo:reach_upper_limit_switch];
 }
 
 - (IBAction)reachLowerLSButton:(id)sender {
     NSLog(@"reachUpperLSButton pressed");
     
-    [Platform setProgramStateTo:reach_lower_limit_switch];
+    [platform setProgramStateTo:reach_lower_limit_switch];
 }
 
 - (IBAction)stopButtonPressed:(id)sender {
     NSLog(@"Stop button pressed");
-    [Platform setProgramStateTo:none];
+    [platform setProgramStateTo:none];
 }
 
 - (IBAction)getStatus:(id)sender {
     NSLog(@"get status button pressed");
     
-    NSString *state_name = [Platform getProgramState];
-    NSString *active_water_sensor = [Platform getActiveWaterSensor];
+    NSString *state_name = [platform getProgramState];
+    NSString *active_water_sensor = [platform getActiveWaterSensor];
     
     self.programStateLabel.text = state_name;
     self.activeWaterSensorLabel.text = active_water_sensor;
@@ -88,7 +82,7 @@
 
 - (IBAction)selectWaterSensor:(id)sender {
     
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Pick a water sensor" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:[Platform getWaterSensors][0], [Platform getWaterSensors][1], [Platform getWaterSensors][2], nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Pick a water sensor" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:platform.waterSensors[0], platform.waterSensors[1], platform.waterSensors[2], nil];
     
     actionSheet.tag = 1;
     
@@ -105,7 +99,7 @@
     if ([segue.identifier isEqualToString:@"settingsSegue"]) {
         UINavigationController *navcontroller = segue.destinationViewController;
         SettingsViewController *controller = (SettingsViewController *)navcontroller.topViewController;
-        controller.url = [Platform getUrl];
+        controller.url = platform.url;
     }
     
 }
@@ -116,46 +110,11 @@
     if (actionSheet.tag != 1)
         return;
     
-    if (buttonIndex >= [Platform getWaterSensors].count)
+    if (buttonIndex >= platform.waterSensors.count)
         return;
     
     // Needs testing !!
-    [Platform setWaterSensorTo:buttonIndex];
-}
-
-#pragma mark NSURLConnection Delegate Methods
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    // A response has been received, this is where we initialize the instance var you created
-    // so that we can append data to it in the didReceiveData method
-    // Furthermore, this method is called each time there is a redirect so reinitializing it
-    // also serves to clear it
-    _responseData = [[NSMutableData alloc] init];
-    
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    // Append the new data to the instance variable you declared
-    [_responseData appendData:data];
-}
-
-- (NSCachedURLResponse *)connection:(NSURLConnection *)connection
-                  willCacheResponse:(NSCachedURLResponse*)cachedResponse {
-    // Return nil to indicate not necessary to store a cached response for this connection
-    return nil;
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    // The request is complete and data has been received
-    // You can parse the stuff in your instance variable now
-    
-    NSLog(@"Rec data: %@", _responseData);
-    
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    // The request has failed for some reason!
-    // Check the error var
+    [platform setWaterSensorTo:buttonIndex];
 }
 
 

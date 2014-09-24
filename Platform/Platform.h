@@ -26,23 +26,24 @@ enum program_states {
     
 };
 
-@interface Platform : NSObject <NSURLConnectionDataDelegate>
+@interface Platform : NSObject <NSURLConnectionDataDelegate> {
+    NSMutableData *_responseData;
+}
 
-+ (NSString *)getUrl;
-+ (void)setUrlTo:(NSString *)newUrl;
+@property (copy) NSString *url;
+@property (copy) NSArray *waterSensors;
 
-+ (NSArray *)getWaterSensors;
-+ (void)setWaterSensorsTo:(NSArray *)newSensors;
+- (id)initWithStandardWaterSensors;
 
-+ (NSString *)getStateNameForState:(enum program_states)state;
+- (NSString *)getStateNameForState:(enum program_states)state;
 
-+ (NSString *)getProgramState;
+- (NSString *)getProgramState;
 
-+ (NSString *)getActiveWaterSensor;
+- (NSString *)getActiveWaterSensor;
 
-+ (void)setProgramStateTo:(enum program_states)newState;
+- (void)setProgramStateTo:(enum program_states)newState;
 
-+ (void)setWaterSensorTo:(NSInteger)newSensor;
+- (void)setWaterSensorTo:(NSInteger)newSensor;
 
 @end
 

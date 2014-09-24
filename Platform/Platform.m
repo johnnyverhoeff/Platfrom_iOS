@@ -13,30 +13,19 @@
 
 @implementation Platform
 
-#pragma mark - Getters and Setters for static variables
-
-static NSString *url;
-static NSArray *waterSensors;
-
-+ (NSString *)getUrl {
-    return url;
-}
-
-+ (void)setUrlTo:(NSString *)newUrl {
-    url = newUrl;
-}
-
-+ (NSArray *)getWaterSensors {
-    return waterSensors;
-}
-
-+ (void)setWaterSensorsTo:(NSArray *)newSensors {
-    waterSensors = newSensors;
+- (id)initWithStandardWaterSensors {
+    self = [super init];
+    
+    if (self) {
+        _waterSensors = @[@"High boat sensor", @"Low boat sensor", @"Under water sensor"];
+    }
+    
+    return self;
 }
 
 #pragma mark - Other stuff
 
-+ (NSString *)getStateNameForState:(enum program_states)state {
+- (NSString *)getStateNameForState:(enum program_states)state {
     
     switch (state) {
         case none:
@@ -73,8 +62,8 @@ static NSArray *waterSensors;
     }
 }
 
-+ (NSDictionary *)getStatusData {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/json", url]] cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:10];
+- (NSDictionary *)getStatusData {
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/json", _url]] cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:10];
     
     [request setHTTPMethod:@"GET"];
     
@@ -103,7 +92,7 @@ static NSArray *waterSensors;
     return [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:&error];
 }
 
-+ (NSString *)getProgramState {
+- (NSString *)getProgramState {
     NSDictionary *data = [self getStatusData];
     
     if ([data count] == 0) {
@@ -113,14 +102,14 @@ static NSArray *waterSensors;
     
     NSInteger state = [[data objectForKey:@"program_state"] integerValue];
     
-    NSString *state_name = [Platform getStateNameForState:state];
+    NSString *state_name = [self getStateNameForState:state];
     
     NSLog(@"program_state: %@", state_name);
     
     return state_name;
 }
 
-+ (NSString *)getActiveWaterSensor {
+- (NSString *)getActiveWaterSensor {
     NSDictionary *data = [self getStatusData];
     
     if ([data count] == 0) {
@@ -135,37 +124,77 @@ static NSArray *waterSensors;
     return active_water_sensor;
 }
 
-+ (void)sendPostRequestWithData:(NSString *)post {
+- (void)sendPostRequestWithData:(NSString *)post {
     NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
     
     NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     
-    [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/web_control", [Platform getUrl]]]];
+    [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/web_control", _url]]];
     [request setHTTPMethod:@"POST"];
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPBody:postData];
+    [request setTimeoutInterval:5];
     
     NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
     
     if (conn)
-        NSLog(@"Connection succesful");
+        NSLog(@"POST request send succusfully");
     else
-        NSLog(@"Connection could not be made");
+        NSLog(@"Error sending POST request");
 }
 
-+ (void)setProgramStateTo:(enum program_states)newState {
+- (void)setProgramStateTo:(enum program_states)newState {
     NSString *post = [NSString stringWithFormat:@"program_state=%i", newState];
     
     [self sendPostRequestWithData:post];
 }
 
-+ (void)setWaterSensorTo:(NSInteger)newSensor {
+- (void)setWaterSensorTo:(NSInteger)newSensor {
     NSString *post = [NSString stringWithFormat:@"water_sensor=%li", (long)newSensor];
     
     [self sendPostRequestWithData:post];
+}
+
+#pragma mark NSURLConnection Delegate Methods
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+    // A response has been received, this is where we initialize the instance var you created
+    // so that we can append data to it in the didReceiveData method
+    // Furthermore, this method is called each time there is a redirect so reinitializing it
+    // also serves to clear it
+    _responseData = [[NSMutableData alloc] init];
+    NSLog(@"didReceiveResponse");
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+    // Append the new data to the instance variable you declared
+    [_responseData appendData:data];
+    NSLog(@"didReceiveData");
+}
+
+- (NSCachedURLResponse *)connection:(NSURLConnection *)connection
+                  willCacheResponse:(NSCachedURLResponse*)cachedResponse {
+    // Return nil to indicate not necessary to store a cached response for this connection
+    NSLog(@"willCacheResponse");
+    return nil;
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    // The request is complete and data has been received
+    // You can parse the stuff in your instance variable now
+    
+    NSLog(@"connectionDidFinishLoading: %@", _responseData);
+    
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+    // The request has failed for some reason!
+    // Check the error var
+    NSLog(@"didFailWithError");
+    NSLog(@"Error: %@", error);
 }
 
 @end
