@@ -124,5 +124,17 @@
     self.activeWaterSensorLabel.text = sensor_name;
 }
 
+- (void)platformDidFinishUpdatingLowerLimitSwitchStatus:(BOOL)state {
+    NSLog(@"lower ls: %i", state);
+}
+
+- (void)platformDidFinishUpdatingUpperLimitSwitchStatus:(BOOL)state {
+    NSLog(@"upper ls: %i", state);
+}
+
+- (void)platformDidFinishUpdatingButtonsStatus:(NSArray *)buttons {
+    
+}
+
 
 @end

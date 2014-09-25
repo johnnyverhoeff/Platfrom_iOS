@@ -17,6 +17,11 @@
 - (void)platformDidFinishUpdatingProgramState:(NSString *)state_name;
 - (void)platformDidFinishUpdatingActiveWaterSensor:(NSString *)sensor_name;
 
+- (void)platformDidFinishUpdatingUpperLimitSwitchStatus:(BOOL)state;
+- (void)platformDidFinishUpdatingLowerLimitSwitchStatus:(BOOL)state;
+
+- (void)platformDidFinishUpdatingButtonsStatus:(NSArray *)buttons;
+
 @end
 
 

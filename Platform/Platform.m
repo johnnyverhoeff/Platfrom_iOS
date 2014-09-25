@@ -144,8 +144,26 @@
     return [self getStateNameForState:state];
 }
 
+- (NSDictionary *)getVlonderFromDictionary:(NSDictionary *)dict {
+    return [dict objectForKey:@"vlonder"];
+}
+
 - (NSString *)getActiveWaterSensorFromDictionary:(NSDictionary *)dict {
-    return [[dict objectForKey:@"vlonder"] objectForKey:@"active_water_sensor"];
+    return [[self getVlonderFromDictionary:dict] objectForKey:@"active_water_sensor"];
+}
+
+- (BOOL)getUpperLimitSwitchStatusFromDictionary:(NSDictionary *)dict {
+    return [[[self getVlonderFromDictionary:dict] objectForKey:@"upper_limit_switch"] boolValue];
+}
+
+- (BOOL)getLowerLimitSwitchStatusFromDictionary:(NSDictionary *)dict {
+    return [[[self getVlonderFromDictionary:dict] objectForKey:@"lower_limit_switch"] boolValue];
+}
+
+- (NSArray *)getButtonsStatesFromDictionary:(NSDictionary *)dict {
+    NSDictionary *buttons = [dict objectForKey:@"buttons"];
+    
+    return [buttons allValues];
 }
 
 #pragma mark NSURLConnection Delegate Methods
@@ -204,6 +222,9 @@
         
         [strongDelegate platformDidFinishUpdatingProgramState:[self getStateFromDictionary:platformData]];
         [strongDelegate platformDidFinishUpdatingActiveWaterSensor:[self getActiveWaterSensorFromDictionary:platformData]];
+        [strongDelegate platformDidFinishUpdatingLowerLimitSwitchStatus:[self getLowerLimitSwitchStatusFromDictionary:platformData]];
+        [strongDelegate platformDidFinishUpdatingUpperLimitSwitchStatus:[self getUpperLimitSwitchStatusFromDictionary:platformData]];
+        [strongDelegate platformDidFinishUpdatingButtonsStatus:[self getButtonsStatesFromDictionary:platformData]];
         
         
     }
