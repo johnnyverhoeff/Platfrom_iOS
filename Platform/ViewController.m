@@ -86,6 +86,10 @@
     [actionSheet showInView:[UIApplication sharedApplication].keyWindow];
 }
 
+- (IBAction)controlPlatfrom:(id)sender {
+    [platform setProgramStateTo:reach_and_control_vlonder_on_active_water_sensor];
+}
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -118,6 +122,8 @@
 
 - (void)platformDidFinishUpdatingProgramState:(NSString *)state_name {
     self.programStateLabel.text = state_name;
+    
+    
 }
 
 - (void)platformDidFinishUpdatingActiveWaterSensor:(NSString *)sensor_name {
@@ -130,6 +136,7 @@
 
 - (void)platformDidFinishUpdatingUpperLimitSwitchStatus:(BOOL)state {
     NSLog(@"upper ls: %i", state);
+    
 }
 
 - (void)platformDidFinishUpdatingButtonsStatus:(NSArray *)buttons {
