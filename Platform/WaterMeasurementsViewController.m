@@ -51,12 +51,18 @@
     timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(update) userInfo:nil repeats:YES];
     
     timer_running = YES;
+    
+    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPause target:self action:@selector(timerStartStopButton:)] ;
+    self.navigationItem.rightBarButtonItem = barButtonItem;
 }
 
 - (void)stopTimer {
     [timer invalidate];
     timer = nil;
     timer_running = NO;
+    
+    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(timerStartStopButton:)] ;
+    self.navigationItem.rightBarButtonItem = barButtonItem;
 }
 
 #pragma mark - Buttons
@@ -68,15 +74,8 @@
 - (IBAction)timerStartStopButton:(id)sender {
     if (timer_running) {
         [self stopTimer];
-        
-        UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(timerStartStopButton:)] ;
-        self.navigationItem.rightBarButtonItem = barButtonItem;
-        
     } else {
-        [self startTimer];
-        
-        UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPause target:self action:@selector(timerStartStopButton:)] ;
-        self.navigationItem.rightBarButtonItem = barButtonItem;
+        [self startTimer];        
     }
 }
 
@@ -93,6 +92,10 @@
     NSLog(@"total_samples: %i", measurement.totalSamples);
     
     self.progressBar.progress = (float)measurement.currentSample / (float)measurement.totalSamples;
+}
 
+- (void)waterMeasurementDidOccurError {
+    
+    [self stopTimer];
 }
 @end

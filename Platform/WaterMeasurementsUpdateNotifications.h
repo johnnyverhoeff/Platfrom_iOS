@@ -15,6 +15,8 @@
 
 - (void)waterMeasurementDidFinishUpdating:(WaterMeasurement *)measurement;
 
+- (void)waterMeasurementDidOccurError;
+
 @end
 
 #endif

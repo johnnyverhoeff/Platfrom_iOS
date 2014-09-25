@@ -199,6 +199,8 @@
     NSInteger statusCode = ((NSHTTPURLResponse *)response).statusCode;
     
     if (statusCode != 200) {
+        [self.delegate platformDidOccurError];
+        [self.waterMeasurementsDelegate waterMeasurementDidOccurError];
         [self showAlertWithTitle:@"Wrong HTTP status code" andMessage:[NSHTTPURLResponse localizedStringForStatusCode:statusCode]];
     }
 }
@@ -237,6 +239,7 @@
         if (error) {
             NSLog(@"Error from json!: %@", error);
             [self showAlertWithTitle:@"JSON parse error" andMessage:error.debugDescription];
+            [self.delegate platformDidOccurError];
             return;
         }
         
@@ -260,6 +263,7 @@
         if (error) {
             NSLog(@"Error from json!: %@", error);
             [self showAlertWithTitle:@"JSON parse error" andMessage:error.debugDescription];
+            [self.waterMeasurementsDelegate waterMeasurementDidOccurError];
             return;
         }
         
@@ -294,6 +298,9 @@
     // Check the error var
     NSLog(@"didFailWithError");
     NSLog(@"Error: %@", error);
+    
+    [self.delegate platformDidOccurError];
+    [self.waterMeasurementsDelegate waterMeasurementDidOccurError];
     
     [self showAlertWithError:error];
 }

@@ -22,6 +22,8 @@
 
 - (void)platformDidFinishUpdatingButtonsStatus:(NSArray *)buttons;
 
+- (void)platformDidOccurError;
+
 @end
 
 

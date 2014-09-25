@@ -147,5 +147,9 @@
     
 }
 
+- (void)platformDidOccurError {
+    NSLog(@"PLATFORM ERRROR!!!!");
+}
+
 
 @end
