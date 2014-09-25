@@ -15,4 +15,6 @@
 
 - (IBAction)refreshButton:(id)sender;
 
+@property (strong, nonatomic) IBOutlet UIProgressView *progressBar;
+
 @end

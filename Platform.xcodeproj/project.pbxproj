@@ -17,6 +17,8 @@
 		B221CD0519CF47770013656B /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B221CD0419CF47770013656B /* SettingsViewController.m */; };
 		B25C609919D497C5006B1870 /* SwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B25C609819D497C5006B1870 /* SwipeViewController.m */; };
 		B25C609F19D49E12006B1870 /* WaterMeasurementsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B25C609E19D49E12006B1870 /* WaterMeasurementsViewController.m */; };
+		B25C60A219D4A1B1006B1870 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = B25C60A119D4A1B1006B1870 /* TabBarController.m */; };
+		B25C60A519D4A84F006B1870 /* WaterMeasurement.m in Sources */ = {isa = PBXBuildFile; fileRef = B25C60A419D4A84F006B1870 /* WaterMeasurement.m */; };
 		B2AE909D19D0B13300762193 /* Platform.m in Sources */ = {isa = PBXBuildFile; fileRef = B2AE909C19D0B13300762193 /* Platform.m */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +53,10 @@
 		B25C609C19D49DA4006B1870 /* WaterMeasurementsUpdateNotifications.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WaterMeasurementsUpdateNotifications.h; sourceTree = "<group>"; };
 		B25C609D19D49E12006B1870 /* WaterMeasurementsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterMeasurementsViewController.h; sourceTree = "<group>"; };
 		B25C609E19D49E12006B1870 /* WaterMeasurementsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterMeasurementsViewController.m; sourceTree = "<group>"; };
+		B25C60A019D4A1B1006B1870 /* TabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
+		B25C60A119D4A1B1006B1870 /* TabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
+		B25C60A319D4A490006B1870 /* WaterMeasurement.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WaterMeasurement.h; sourceTree = "<group>"; };
+		B25C60A419D4A84F006B1870 /* WaterMeasurement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterMeasurement.m; sourceTree = "<group>"; };
 		B2881CC319D318AA00DA2D22 /* PlatformStatusUpdateNotifications.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlatformStatusUpdateNotifications.h; sourceTree = "<group>"; };
 		B2AE909B19D0B05600762193 /* Platform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Platform.h; sourceTree = "<group>"; };
 		B2AE909C19D0B13300762193 /* Platform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Platform.m; sourceTree = "<group>"; };
@@ -113,6 +119,10 @@
 				B25C609C19D49DA4006B1870 /* WaterMeasurementsUpdateNotifications.h */,
 				B25C609D19D49E12006B1870 /* WaterMeasurementsViewController.h */,
 				B25C609E19D49E12006B1870 /* WaterMeasurementsViewController.m */,
+				B25C60A019D4A1B1006B1870 /* TabBarController.h */,
+				B25C60A119D4A1B1006B1870 /* TabBarController.m */,
+				B25C60A319D4A490006B1870 /* WaterMeasurement.h */,
+				B25C60A419D4A84F006B1870 /* WaterMeasurement.m */,
 			);
 			path = Platform;
 			sourceTree = "<group>";
@@ -265,7 +275,9 @@
 				B221CD0519CF47770013656B /* SettingsViewController.m in Sources */,
 				B25C609F19D49E12006B1870 /* WaterMeasurementsViewController.m in Sources */,
 				B25C609919D497C5006B1870 /* SwipeViewController.m in Sources */,
+				B25C60A219D4A1B1006B1870 /* TabBarController.m in Sources */,
 				B2AE909D19D0B13300762193 /* Platform.m in Sources */,
+				B25C60A519D4A84F006B1870 /* WaterMeasurement.m in Sources */,
 				B221CCDD19CF13B50013656B /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

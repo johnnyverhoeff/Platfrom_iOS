@@ -9,10 +9,11 @@
 #ifndef Platform_WaterMeasurementsUpdateNotifications_h
 #define Platform_WaterMeasurementsUpdateNotifications_h
 
+#import "WaterMeasurement.h"
 
 @protocol WaterMeasurementsUpdateNotifications <NSObject>
 
-- (void)waterMeasurerDidFinishUpdatingTotalSamples:(NSInteger)samples;
+- (void)waterMeasurementDidFinishUpdating:(WaterMeasurement *)measurement;
 
 @end
 

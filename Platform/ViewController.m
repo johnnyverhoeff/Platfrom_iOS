@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #import "SettingsViewController.h"
-
+#import "TabBarController.h"
 #import "Platform.h"
 
 @interface ViewController ()
@@ -40,10 +40,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    platform = [[Platform alloc] initWithStandardWaterSensors];
-    platform.delegate = self;
+    //platform = [[Platform alloc] initWithStandardWaterSensors];
+    //platform.delegate = self;
     
-    platform.url = @"http://192.168.215.177";
+    //platform.url = @"http://192.168.215.177";
+    
+    TabBarController *tab = (TabBarController *)self.navigationController.tabBarController;
+    
+    platform = tab.platform;
+    platform.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -114,7 +119,6 @@
     if (buttonIndex >= platform.waterSensors.count)
         return;
     
-    // Needs testing !!
     [platform setWaterSensorTo:buttonIndex];
 }
 

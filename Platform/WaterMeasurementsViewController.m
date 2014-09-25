@@ -8,7 +8,8 @@
 
 #import "WaterMeasurementsViewController.h"
 #import "Platform.h"
-
+#import "TabBarController.h"
+#import "WaterMeasurement.h"
 
 @interface WaterMeasurementsViewController ()
 
@@ -16,16 +17,21 @@
 
 @implementation WaterMeasurementsViewController {
     Platform *platform;
+    WaterMeasurement *measurement_latest;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    platform = [[Platform alloc] initWithStandardWaterSensors];
+    TabBarController *tab = (TabBarController *)self.navigationController.tabBarController;
+    
+    platform = tab.platform;
     platform.waterMeasurementsDelegate = self;
     
-    platform.url = @"http://192.168.215.177";
+    self.progressBar.progress = 0.0;
+    
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -41,7 +47,12 @@
 
 #pragma mark - Water measurer delegate 
 
-- (void)waterMeasurerDidFinishUpdatingTotalSamples:(NSInteger)samples {
-    NSLog(@"Samples: %i", samples);
+- (void)waterMeasurementDidFinishUpdating:(WaterMeasurement *)measurement {
+    NSLog(@"%hhd", measurement.sampleInProgress);
+    NSLog(@"current_sample: %i", measurement.currentSample);
+    NSLog(@"total_samples: %i", measurement.totalSamples);
+    
+    self.progressBar.progress = (float)measurement.currentSample / (float)measurement.totalSamples;
+
 }
 @end

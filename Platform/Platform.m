@@ -10,6 +10,8 @@
 #import <UIKit/UIKit.h>
 
 #import "Platform.h"
+#import "WaterMeasurement.h"
+
 #import "PlatformStatusUpdateNotifications.h"
 #import "WaterMeasurementsUpdateNotifications.h"
 
@@ -261,11 +263,25 @@
             return;
         }
         
+        
+        WaterMeasurement *measurement = [[WaterMeasurement alloc] init];
+        
+        
         id<WaterMeasurementsUpdateNotifications> strongDelegate = self.waterMeasurementsDelegate;
         
-        NSInteger totalSamples = [[waterData objectForKey:@"total_samples"] integerValue];
+        measurement.totalSamples = [[waterData objectForKey:@"total_samples"] integerValue];
+        measurement.waterDroppingHits = [[waterData objectForKey:@"water_dropping_hits"] integerValue];
+        measurement.waterRisingHits = [[waterData objectForKey:@"water_rising_hits"] integerValue];
+        measurement.samplePeriod = [[waterData objectForKey:@"sample_period"] integerValue];
+        measurement.sampleTime = [[waterData objectForKey:@"sample_time"] integerValue];
+        measurement.motorOnTime = [[waterData objectForKey:@"motor_on_time"] integerValue];
+        measurement.lowerThreshold = [[waterData objectForKey:@"lower_threshold"] integerValue];
+        measurement.upperThreshold = [[waterData objectForKey:@"upper_threshold"] integerValue];
+        measurement.sampleInProgress = [[waterData objectForKey:@"sample_in_progress"] boolValue];
+        measurement.currentSample = [[waterData objectForKey:@"current_sample"] integerValue];
         
-        [strongDelegate waterMeasurerDidFinishUpdatingTotalSamples:totalSamples];
+        
+        [strongDelegate waterMeasurementDidFinishUpdating:measurement];
     }
     
     else {

@@ -8,6 +8,7 @@
 
 #import "SwipeViewController.h"
 #import "Platform.h"
+#import "TabBarController.h"
 
 @interface SwipeViewController ()
 
@@ -22,10 +23,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    platform = [[Platform alloc] initWithStandardWaterSensors];
-    //platform.delegate = self;
+    TabBarController *tab = (TabBarController *)self.navigationController.tabBarController;
     
-    platform.url = @"http://192.168.215.177";
+    platform = tab.platform;
     
     
     UISwipeGestureRecognizer * swipeUp=[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeUp:)];

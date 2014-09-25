@@ -227,7 +227,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="5Ua-uK-cNT">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="BKd-5U-SO1" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="BKd-5U-SO1" customClass="TabBarController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
@@ -276,6 +276,11 @@
                     <view key="view" contentMode="scaleToFill" id="DxD-qY-sBM">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UUK-KS-6Mz">
+                                <rect key="frame" x="0.0" y="64" width="320" height="2"/>
+                            </progressView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Water measurements" id="u81-hV-MqU">
@@ -286,6 +291,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="progressBar" destination="UUK-KS-6Mz" id="nyo-qn-h0w"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dje-eW-7jd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
