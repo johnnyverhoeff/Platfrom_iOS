@@ -102,7 +102,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="dy7-Wp-WSZ" kind="presentation" identifier="settingsSegue" id="jOI-jM-K0P"/>
+                                    <segue destination="dy7-Wp-WSZ" kind="presentation" identifier="settingsSegue" modalPresentationStyle="currentContext" id="jOI-jM-K0P"/>
                                 </connections>
                             </button>
                         </barButtonItem>
@@ -114,7 +114,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1531" y="352"/>
+            <point key="canvasLocation" x="1531" y="347"/>
         </scene>
         <!--Swipe View Controller-->
         <scene sceneID="JNw-Ta-J28">
@@ -168,12 +168,12 @@
                     <navigationItem key="navigationItem" title="Settings" id="Xb3-Ky-wp2">
                         <barButtonItem key="leftBarButtonItem" style="plain" systemItem="cancel" id="fK0-4L-311">
                             <connections>
-                                <segue destination="nfE-bT-4cC" kind="unwind" identifier="cancelSettings" unwindAction="cancelSettings:" id="KAL-Od-DUu"/>
+                                <segue destination="nfE-bT-4cC" kind="unwind" identifier="cancelSettings" unwindAction="cancelSettings:" id="J8F-Bn-NYb"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="save" id="JGQ-4a-oxZ">
                             <connections>
-                                <segue destination="nfE-bT-4cC" kind="unwind" identifier="saveSettings" unwindAction="saveSettings:" id="KlL-BE-rZD"/>
+                                <segue destination="nfE-bT-4cC" kind="unwind" identifier="saveSettings" unwindAction="saveSettings:" id="Xrr-VB-D6y"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -184,7 +184,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mMu-yY-8SX" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="nfE-bT-4cC" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2366" y="352"/>
+            <point key="canvasLocation" x="2366" y="347"/>
         </scene>
         <!--Normal-->
         <scene sceneID="bql-1J-moW">
@@ -204,7 +204,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q0c-gX-FH9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1116" y="352"/>
+            <point key="canvasLocation" x="1116" y="347"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="VyG-eX-VXS">
@@ -222,7 +222,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bsM-ow-3s7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1953" y="352"/>
+            <point key="canvasLocation" x="1953" y="347"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="5Ua-uK-cNT">
@@ -238,11 +238,12 @@
                     <connections>
                         <segue destination="XaP-nd-1f3" kind="relationship" relationship="viewControllers" id="CZt-4Z-NfO"/>
                         <segue destination="UVA-Xi-U99" kind="relationship" relationship="viewControllers" id="90b-0q-26R"/>
+                        <segue destination="zEi-0d-pMe" kind="relationship" relationship="viewControllers" id="Nxk-Oa-azA"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tHu-0U-pJ3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="715" y="352"/>
+            <point key="canvasLocation" x="80" y="1037"/>
         </scene>
         <!--Swipe-->
         <scene sceneID="D4w-i0-qTg">
@@ -263,6 +264,52 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jNK-mG-boj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1116" y="903"/>
+        </scene>
+        <!--Water measurements-->
+        <scene sceneID="1c3-Is-DlM">
+            <objects>
+                <viewController id="VuP-bv-LhW" customClass="WaterMeasurementsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cwH-Yk-l4U"/>
+                        <viewControllerLayoutGuide type="bottom" id="rcq-4X-3T0"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="DxD-qY-sBM">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Water measurements" id="u81-hV-MqU">
+                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="refresh" id="bWo-PV-Pc3">
+                            <connections>
+                                <action selector="refreshButton:" destination="VuP-bv-LhW" id="qn1-mb-zk0"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dje-eW-7jd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1531" y="1468"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="wM8-Ir-3yr">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zEi-0d-pMe" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="aOc-jj-0VQ"/>
+                    <toolbarItems/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="oYd-lD-lnm">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="VuP-bv-LhW" kind="relationship" relationship="rootViewController" id="Y41-vM-Cb9"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1W5-p4-NyK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1116" y="1468"/>
         </scene>
     </scenes>
 </document>

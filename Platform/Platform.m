@@ -11,6 +11,7 @@
 
 #import "Platform.h"
 #import "PlatformStatusUpdateNotifications.h"
+#import "WaterMeasurementsUpdateNotifications.h"
 
 @implementation Platform
 
@@ -95,6 +96,19 @@
         NSLog(@"Error sending GET request");
 }
 
+- (void)requestWaterMeasurementsData {
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/water_measurer", _url]] cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:5];
+    
+    [request setHTTPMethod:@"GET"];
+    
+    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    if (conn)
+        NSLog(@"GET request send succusfully");
+    else
+        NSLog(@"Error sending GET request");
+}
+
 - (void)sendPostRequestWithData:(NSString *)post {
     NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
     
@@ -121,6 +135,10 @@
 
 - (void)updateStatus {
     [self requestStatusData];
+}
+
+- (void)updateWaterMeasurer {
+    [self requestWaterMeasurementsData];
 }
 
 #pragma mark set methods for arduino
@@ -204,10 +222,12 @@
     
     
     NSURL *url = connection.currentRequest.URL;
-    NSURL *getUrl = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@%@",_url,@"/json"]];
+    NSURL *jsonUrl = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@%@",_url,@"/json"]];
+    NSURL *waterUrl = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@%@",_url,@"/water_measurer"]];
+
     
-    if ([url isEqual:getUrl]) {
-        NSLog(@"It was from the only get request");
+    if ([url isEqual:jsonUrl]) {
+        NSLog(@"It was from the json get request");
         
         NSError *error;
         NSDictionary *platformData = [NSJSONSerialization JSONObjectWithData:_responseData options:kNilOptions error:&error];
@@ -228,6 +248,26 @@
         
         
     }
+    
+    else if ([url isEqual:waterUrl]) {
+        NSLog(@"It was from the water get request");
+        
+        NSError *error;
+        NSDictionary *waterData = [NSJSONSerialization JSONObjectWithData:_responseData options:kNilOptions error:&error];
+        
+        if (error) {
+            NSLog(@"Error from json!: %@", error);
+            [self showAlertWithTitle:@"JSON parse error" andMessage:error.debugDescription];
+            return;
+        }
+        
+        id<WaterMeasurementsUpdateNotifications> strongDelegate = self.waterMeasurementsDelegate;
+        
+        NSInteger totalSamples = [[waterData objectForKey:@"total_samples"] integerValue];
+        
+        [strongDelegate waterMeasurerDidFinishUpdatingTotalSamples:totalSamples];
+    }
+    
     else {
         NSLog(@"It was from the only post request");
     }

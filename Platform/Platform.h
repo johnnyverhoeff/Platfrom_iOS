@@ -10,6 +10,7 @@
 #define Platform_Platform_h
 
 @protocol PlatformStatusUpdateNotifications;
+@protocol WaterMeasurementsUpdateNotifications;
 
 enum program_states {
     none = 0,
@@ -35,6 +36,7 @@ enum program_states {
 
 
 @property (nonatomic, assign) id<PlatformStatusUpdateNotifications> delegate;
+@property (nonatomic, assign) id<WaterMeasurementsUpdateNotifications> waterMeasurementsDelegate;
 
 @property (copy) NSString *url;
 @property (copy) NSArray *waterSensors;
@@ -42,6 +44,8 @@ enum program_states {
 - (id)initWithStandardWaterSensors;
 
 - (void)updateStatus;
+
+- (void)updateWaterMeasurer;
 
 - (NSString *)getStateNameForState:(enum program_states)state;
 

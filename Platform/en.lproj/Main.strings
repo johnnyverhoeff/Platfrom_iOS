@@ -1,0 +1,48 @@
+
+/* Class = "IBUILabel"; text = "None"; ObjectID = "5UZ-M4-X6M"; */
+"5UZ-M4-X6M.text" = "None";
+
+/* Class = "IBUILabel"; text = "Platform state: "; ObjectID = "76u-BC-9BT"; */
+"76u-BC-9BT.text" = "Platform state: ";
+
+/* Class = "IBUILabel"; text = "None"; ObjectID = "7TF-VO-LcT"; */
+"7TF-VO-LcT.text" = "None";
+
+/* Class = "IBUILabel"; text = "Platform url"; ObjectID = "AuZ-Su-7tq"; */
+"AuZ-Su-7tq.text" = "Platform url";
+
+/* Class = "IBUIBarButtonItem"; title = "Item"; ObjectID = "Dgo-Ch-vmf"; */
+"Dgo-Ch-vmf.title" = "Item";
+
+/* Class = "IBUIButton"; normalTitle = "Select water sensor"; ObjectID = "FFW-r2-TlX"; */
+"FFW-r2-TlX.normalTitle" = "Select water sensor";
+
+/* Class = "IBUIButton"; normalTitle = "Reach upper limit switch"; ObjectID = "HbA-Pe-63r"; */
+"HbA-Pe-63r.normalTitle" = "Reach upper limit switch";
+
+/* Class = "IBUIButton"; normalTitle = "Stop"; ObjectID = "JTc-Xe-QJS"; */
+"JTc-Xe-QJS.normalTitle" = "Stop";
+
+/* Class = "IBUITabBarItem"; title = "Normal"; ObjectID = "PFt-1X-bS5"; */
+"PFt-1X-bS5.title" = "Normal";
+
+/* Class = "IBUINavigationItem"; title = "Settings"; ObjectID = "Xb3-Ky-wp2"; */
+"Xb3-Ky-wp2.title" = "Settings";
+
+/* Class = "IBUIButton"; normalTitle = "Control platform"; ObjectID = "YHg-B3-fvY"; */
+"YHg-B3-fvY.normalTitle" = "Control platform";
+
+/* Class = "IBUITabBarItem"; title = "Swipe"; ObjectID = "ZQA-hz-kjM"; */
+"ZQA-hz-kjM.title" = "Swipe";
+
+/* Class = "IBUITabBarItem"; title = "Item"; ObjectID = "aOc-jj-0VQ"; */
+"aOc-jj-0VQ.title" = "Item";
+
+/* Class = "IBUINavigationItem"; title = "Platform"; ObjectID = "eQx-oU-fvV"; */
+"eQx-oU-fvV.title" = "Platform";
+
+/* Class = "IBUILabel"; text = "Active sensor: "; ObjectID = "kqV-Yp-6t8"; */
+"kqV-Yp-6t8.text" = "Active sensor: ";
+
+/* Class = "IBUIButton"; normalTitle = "Reach lower limit switch"; ObjectID = "kqr-BP-onm"; */
+"kqr-BP-onm.normalTitle" = "Reach lower limit switch";

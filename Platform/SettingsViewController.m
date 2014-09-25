@@ -33,8 +33,9 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    
+    NSLog(@"prepareForSegue in settingscontroller");
     if ([segue.identifier isEqualToString:@"saveSettings"]) {
+        NSLog(@"save settings");
         self.url = self.urlTextField.text;
     }
     
