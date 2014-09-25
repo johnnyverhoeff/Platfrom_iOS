@@ -14,6 +14,7 @@
 @interface WaterMeasurementsViewController : ViewController <WaterMeasurementsUpdateNotifications>
 
 - (IBAction)refreshButton:(id)sender;
+- (IBAction)timerStartStopButton:(id)sender;
 
 @property (strong, nonatomic) IBOutlet UIProgressView *progressBar;
 

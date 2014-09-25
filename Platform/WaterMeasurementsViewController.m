@@ -18,6 +18,8 @@
 @implementation WaterMeasurementsViewController {
     Platform *platform;
     WaterMeasurement *measurement_latest;
+    NSTimer *timer;
+    BOOL timer_running;
 }
 
 - (void)viewDidLoad {
@@ -30,8 +32,14 @@
     platform.waterMeasurementsDelegate = self;
     
     self.progressBar.progress = 0.0;
-    
+}
 
+- (void)viewDidDisappear:(BOOL)animated {
+    [self stopTimer];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [self startTimer];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -39,9 +47,41 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)startTimer {
+    timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(update) userInfo:nil repeats:YES];
+    
+    timer_running = YES;
+}
+
+- (void)stopTimer {
+    [timer invalidate];
+    timer = nil;
+    timer_running = NO;
+}
+
 #pragma mark - Buttons
 
 - (IBAction)refreshButton:(id)sender {
+    [platform updateWaterMeasurer];
+}
+
+- (IBAction)timerStartStopButton:(id)sender {
+    if (timer_running) {
+        [self stopTimer];
+        
+        UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(timerStartStopButton:)] ;
+        self.navigationItem.rightBarButtonItem = barButtonItem;
+        
+    } else {
+        [self startTimer];
+        
+        UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPause target:self action:@selector(timerStartStopButton:)] ;
+        self.navigationItem.rightBarButtonItem = barButtonItem;
+    }
+}
+
+- (void)update {
+    NSLog(@"timer");
     [platform updateWaterMeasurer];
 }
 

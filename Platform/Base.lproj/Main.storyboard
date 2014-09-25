@@ -289,6 +289,11 @@
                                 <action selector="refreshButton:" destination="VuP-bv-LhW" id="qn1-mb-zk0"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="pause" id="6NA-SC-hAm">
+                            <connections>
+                                <action selector="timerStartStopButton:" destination="VuP-bv-LhW" id="bOe-8a-6oB"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
