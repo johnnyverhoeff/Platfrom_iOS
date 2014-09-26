@@ -280,6 +280,15 @@
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UUK-KS-6Mz">
                                 <rect key="frame" x="0.0" y="64" width="320" height="2"/>
                             </progressView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ubu-U5-Ppn">
+                                <rect key="frame" x="0.0" y="72" width="320" height="359"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <sections/>
+                                <connections>
+                                    <outlet property="dataSource" destination="VuP-bv-LhW" id="EVT-jd-5BJ"/>
+                                    <outlet property="delegate" destination="VuP-bv-LhW" id="7y4-Q8-3YS"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -298,6 +307,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="progressBar" destination="UUK-KS-6Mz" id="nyo-qn-h0w"/>
+                        <outlet property="tableView" destination="ubu-U5-Ppn" id="pNF-FI-eL2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dje-eW-7jd" userLabel="First Responder" sceneMemberID="firstResponder"/>

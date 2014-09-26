@@ -11,11 +11,12 @@
 #import "WaterMeasurementsUpdateNotifications.h"
 
 
-@interface WaterMeasurementsViewController : ViewController <WaterMeasurementsUpdateNotifications>
+@interface WaterMeasurementsViewController : ViewController <WaterMeasurementsUpdateNotifications,UITableViewDelegate, UITableViewDataSource>
 
 - (IBAction)refreshButton:(id)sender;
 - (IBAction)timerStartStopButton:(id)sender;
 
 @property (strong, nonatomic) IBOutlet UIProgressView *progressBar;
 
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 @end
