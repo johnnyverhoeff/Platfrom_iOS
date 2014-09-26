@@ -92,6 +92,10 @@
 }
 
 - (IBAction)controlPlatfrom:(id)sender {
+    [platform setProgramStateTo:control_vlonder_on_active_water_sensor];
+}
+
+- (IBAction)reachAndControlPlatform:(id)sender {
     [platform setProgramStateTo:reach_and_control_vlonder_on_active_water_sensor];
 }
 
@@ -125,21 +129,47 @@
 #pragma mark - Platform delegates
 
 - (void)platformDidFinishUpdatingProgramState:(NSString *)state_name {
-    self.programStateLabel.text = state_name;
+
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
     
+    cell.textLabel.text = [NSString stringWithFormat:@"Program state: %@", state_name];
+}
+
+- (void)platformDidFinishUpdatingMovingState:(NSString *)moving_state {
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:0]];
     
+    cell.textLabel.text = [NSString stringWithFormat:@"Moving state: %@", moving_state];
 }
 
 - (void)platformDidFinishUpdatingActiveWaterSensor:(NSString *)sensor_name {
-    self.activeWaterSensorLabel.text = sensor_name;
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:0]];
+    
+    cell.textLabel.text = [NSString stringWithFormat:@"Active sensor: %@", sensor_name];
 }
 
 - (void)platformDidFinishUpdatingLowerLimitSwitchStatus:(BOOL)state {
-    NSLog(@"lower ls: %i", state);
+    
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:3 inSection:0]];
+    
+    NSString *text;
+    if (state)
+        text = @"Lower ls reached";
+    else
+        text = @"Lower ls not reached";
+    
+    cell.textLabel.text = text;
 }
 
 - (void)platformDidFinishUpdatingUpperLimitSwitchStatus:(BOOL)state {
-    NSLog(@"upper ls: %i", state);
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:4 inSection:0]];
+    
+    NSString *text;
+    if (state)
+        text = @"Upper ls reached";
+    else
+        text = @"Upper ls not reached";
+    
+    cell.textLabel.text = text;
     
 }
 
@@ -147,8 +177,61 @@
     
 }
 
+
+
 - (void)platformDidOccurError {
     NSLog(@"PLATFORM ERRROR!!!!");
+}
+
+#pragma mark - UITableView delegate
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 5;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *simpleTableIdentifier = @"SimpleTableCell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+    
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
+    }
+    
+    NSString *text;
+    
+    switch (indexPath.row) {
+        case 0:
+            text = @"Program state: None";
+            break;
+            
+        case 1:
+            text = @"Moving state: Not moving";
+            break;
+            
+        case 2:
+            text = @"No active sensor";
+            break;
+            
+        case 3:
+            text = @"Lower ls not reached";
+            break;
+            
+        case 4:
+            text = @"Upper ls not reached";
+            break;
+            
+        default:
+            text = @"Error!";
+            break;
+    }
+    
+    cell.textLabel.text = text;
+    return cell;
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    return NO;
 }
 
 

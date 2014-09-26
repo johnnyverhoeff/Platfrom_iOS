@@ -16,6 +16,7 @@
 
 - (void)platformDidFinishUpdatingProgramState:(NSString *)state_name;
 - (void)platformDidFinishUpdatingActiveWaterSensor:(NSString *)sensor_name;
+- (void)platformDidFinishUpdatingMovingState:(NSString *)moving_state;
 
 - (void)platformDidFinishUpdatingUpperLimitSwitchStatus:(BOOL)state;
 - (void)platformDidFinishUpdatingLowerLimitSwitchStatus:(BOOL)state;

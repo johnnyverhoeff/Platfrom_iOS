@@ -82,6 +82,24 @@
     }
 }
 
+- (NSString *)getNameForMovingState:(enum moving_states)state {
+    switch (state) {
+        
+        
+            
+        case moving_down:
+            return @"Moving down";
+            
+        case moving_up:
+            return @"Moving up";
+            
+        case not_moving:
+        default:
+            return @"Not moving";
+            
+    }
+}
+
 
 #pragma mark - GET and POST methods
 
@@ -168,6 +186,10 @@
     return [dict objectForKey:@"vlonder"];
 }
 
+- (NSString *)getVlonderMovingState:(NSDictionary *)dict {    
+    return [self getNameForMovingState:[[[self getVlonderFromDictionary:dict] objectForKey:@"moving_state"] integerValue]];
+}
+
 - (NSString *)getActiveWaterSensorFromDictionary:(NSDictionary *)dict {
     return [[self getVlonderFromDictionary:dict] objectForKey:@"active_water_sensor"];
 }
@@ -250,6 +272,7 @@
         [strongDelegate platformDidFinishUpdatingLowerLimitSwitchStatus:[self getLowerLimitSwitchStatusFromDictionary:platformData]];
         [strongDelegate platformDidFinishUpdatingUpperLimitSwitchStatus:[self getUpperLimitSwitchStatusFromDictionary:platformData]];
         [strongDelegate platformDidFinishUpdatingButtonsStatus:[self getButtonsStatesFromDictionary:platformData]];
+        [strongDelegate platformDidFinishUpdatingMovingState:[self getVlonderMovingState:platformData]];
         
         
     }

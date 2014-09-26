@@ -29,6 +29,12 @@ enum program_states {
     
 };
 
+enum moving_states {
+    not_moving = 0,
+    moving_up = 1,
+    moving_down = 2,
+};
+
 
 @interface Platform : NSObject <NSURLConnectionDataDelegate> {
     NSMutableData *_responseData;
