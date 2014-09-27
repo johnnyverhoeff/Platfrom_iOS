@@ -24,5 +24,7 @@
 - (IBAction)getStatus:(id)sender;
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+
+
 @end
 

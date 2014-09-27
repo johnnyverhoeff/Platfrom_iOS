@@ -232,7 +232,7 @@
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
     // Append the new data to the instance variable you declared
     [_responseData appendData:data];
-    NSLog(@"didReceiveData");
+    //NSLog(@"didReceiveData");
 }
 
 - (NSCachedURLResponse *)connection:(NSURLConnection *)connection
@@ -246,7 +246,7 @@
     // The request is complete and data has been received
     // You can parse the stuff in your instance variable now
     
-    NSLog(@"connectionDidFinishLoading: %@", _responseData);
+    NSLog(@"connectionDidFinishLoading"/*: %@", _responseData*/);
     
     
     NSURL *url = connection.currentRequest.URL;

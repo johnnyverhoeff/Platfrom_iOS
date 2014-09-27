@@ -23,9 +23,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    TabBarController *tab = (TabBarController *)self.navigationController.tabBarController;
+    /*TabBarController *tab = (TabBarController *)self.navigationController.tabBarController;
     
-    platform = tab.platform;
+    platform = tab.platform;*/
+    
+    platform = [[Platform alloc] initWithStandardWaterSensors];
+    
+    platform.url = @"http://192.168.215.177";
     
     
     UISwipeGestureRecognizer * swipeUp=[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeUp:)];

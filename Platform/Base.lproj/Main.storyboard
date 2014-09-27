@@ -60,14 +60,6 @@
                                     <action selector="reachAndControlPlatform:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="WyB-Le-aMF"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="eKn-mc-HJk">
-                                <rect key="frame" x="0.0" y="325" width="320" height="106"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="vXZ-lx-hvc" id="dOe-Ei-Cgg"/>
-                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="hUY-5P-EbI"/>
-                                </connections>
-                            </tableView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JTc-Xe-QJS">
                                 <rect key="frame" x="16" y="260" width="288" height="57"/>
                                 <state key="normal" title="Stop">
@@ -78,6 +70,14 @@
                                     <action selector="stopButtonPressed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="h0H-Mk-jag"/>
                                 </connections>
                             </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Ltv-dZ-Rkd">
+                                <rect key="frame" x="0.0" y="325" width="320" height="106"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="vXZ-lx-hvc" id="YmN-2i-rd7"/>
+                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="JPF-df-rKZ"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -101,14 +101,14 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="tableView" destination="eKn-mc-HJk" id="iSu-xF-AGD"/>
+                        <outlet property="tableView" destination="Ltv-dZ-Rkd" id="O8h-Q9-IH3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1531" y="347"/>
         </scene>
-        <!--Swipe View Controller-->
+        <!--Swipe controller-->
         <scene sceneID="JNw-Ta-J28">
             <objects>
                 <viewController id="uCx-Ag-fcc" customClass="SwipeViewController" sceneMemberID="viewController">
@@ -121,7 +121,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Lc0-tC-Oep"/>
+                    <navigationItem key="navigationItem" title="Swipe controller" id="Lc0-tC-Oep"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cJx-Le-IfS" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -11,7 +11,7 @@
 #import "WaterMeasurementsUpdateNotifications.h"
 
 
-@interface WaterMeasurementsViewController : ViewController <WaterMeasurementsUpdateNotifications,UITableViewDelegate, UITableViewDataSource>
+@interface WaterMeasurementsViewController : UIViewController <WaterMeasurementsUpdateNotifications,UITableViewDelegate, UITableViewDataSource>
 
 - (IBAction)refreshButton:(id)sender;
 - (IBAction)timerStartStopButton:(id)sender;

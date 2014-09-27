@@ -18,8 +18,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.platform = [[Platform alloc] initWithStandardWaterSensors];
-    self.platform.url = @"http://192.168.215.177";
+    //self.platform = [[Platform alloc] initWithStandardWaterSensors];
+    //self.platform.url = @"http://192.168.215.177";
     
     
 }

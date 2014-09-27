@@ -8,6 +8,6 @@
 
 #import "ViewController.h"
 
-@interface SwipeViewController : ViewController
+@interface SwipeViewController : UIViewController
 
 @end

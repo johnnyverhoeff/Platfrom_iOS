@@ -26,10 +26,15 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    TabBarController *tab = (TabBarController *)self.navigationController.tabBarController;
+    /*TabBarController *tab = (TabBarController *)self.navigationController.tabBarController;
     
     platform = tab.platform;
+    platform.waterMeasurementsDelegate = self;*/
+    
+    platform = [[Platform alloc] initWithStandardWaterSensors];
     platform.waterMeasurementsDelegate = self;
+    
+    platform.url = @"http://192.168.215.177";
     
     self.progressBar.progress = 0.0;
 }

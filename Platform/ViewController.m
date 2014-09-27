@@ -24,16 +24,16 @@
 #pragma mark - Action buttons from settings viewcontroller
 
 - (IBAction)cancelSettings:(UIStoryboardSegue *)segue {
-    NSLog(@"Cancel settings in main viewcontroller");
-    NSLog(@"Url is: %@", platform.url);
+    //NSLog(@"Cancel settings in main viewcontroller");
+    //NSLog(@"Url is: %@", platform.url);
 }
 
 - (IBAction)saveSettings:(UIStoryboardSegue *)segue {
-    NSLog(@"Save settings in main viewcontroller");
+    //NSLog(@"Save settings in main viewcontroller");
     
     SettingsViewController *controller = segue.sourceViewController;
     platform.url = controller.url;
-    NSLog(@"The new url is: %@", platform.url);
+    //NSLog(@"The new url is: %@", platform.url);
     
 }
 
@@ -42,15 +42,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //platform = [[Platform alloc] initWithStandardWaterSensors];
-    //platform.delegate = self;
     
-    //platform.url = @"http://192.168.215.177";
     
-    TabBarController *tab = (TabBarController *)self.navigationController.tabBarController;
+    platform = [[Platform alloc] initWithStandardWaterSensors];
+    platform.delegate = self;
+    
+    platform.url = @"http://192.168.215.177";
+    
+    /*TabBarController *tab = (TabBarController *)self.navigationController.tabBarController;
     
     platform = tab.platform;
-    platform.delegate = self;
+    platform.delegate = self;*/
 }
 
 - (void)didReceiveMemoryWarning {
@@ -63,23 +65,23 @@
 
 
 - (IBAction)reachUpperLSButton:(id)sender {
-    NSLog(@"reachUpperLSButton pressed");
+    //NSLog(@"reachUpperLSButton pressed");
     [platform setProgramStateTo:reach_upper_limit_switch];
 }
 
 - (IBAction)reachLowerLSButton:(id)sender {
-    NSLog(@"reachUpperLSButton pressed");
+    //NSLog(@"reachUpperLSButton pressed");
     
     [platform setProgramStateTo:reach_lower_limit_switch];
 }
 
 - (IBAction)stopButtonPressed:(id)sender {
-    NSLog(@"Stop button pressed");
+    //NSLog(@"Stop button pressed");
     [platform setProgramStateTo:none];
 }
 
 - (IBAction)getStatus:(id)sender {
-    NSLog(@"get status button pressed");
+    //NSLog(@"get status button pressed");
     
     [platform updateStatus];
 }
@@ -146,7 +148,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *simpleTableIdentifier = @"SimpleTableCell";
+    static NSString *simpleTableIdentifier = @"SimpleTableCell0";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
     
