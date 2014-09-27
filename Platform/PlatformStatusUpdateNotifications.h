@@ -10,18 +10,12 @@
 #define Platform_PlatformStatusUpdateNotifications_h
 
 #import "Platform.h"
+#import "PlatformData.h"
 
 
 @protocol PlatformStatusUpdateNotifications <NSObject>
 
-- (void)platformDidFinishUpdatingProgramState:(NSString *)state_name;
-- (void)platformDidFinishUpdatingActiveWaterSensor:(NSString *)sensor_name;
-- (void)platformDidFinishUpdatingMovingState:(NSString *)moving_state;
-
-- (void)platformDidFinishUpdatingUpperLimitSwitchStatus:(BOOL)state;
-- (void)platformDidFinishUpdatingLowerLimitSwitchStatus:(BOOL)state;
-
-- (void)platformDidFinishUpdatingButtonsStatus:(NSArray *)buttons;
+- (void)platformDidFinishUpdatingData:(PlatformData *)data;
 
 - (void)platformDidOccurError;
 

@@ -15,6 +15,8 @@
 #import "PlatformStatusUpdateNotifications.h"
 #import "WaterMeasurementsUpdateNotifications.h"
 
+#import "PlatformData.h"
+
 @implementation Platform
 
 - (id)initWithStandardWaterSensors {
@@ -265,16 +267,18 @@
             return;
         }
         
-        id<PlatformStatusUpdateNotifications> strongDelegate = self.delegate;
+        PlatformData *data = [[PlatformData alloc] init];
         
-        [strongDelegate platformDidFinishUpdatingProgramState:[self getStateFromDictionary:platformData]];
-        [strongDelegate platformDidFinishUpdatingActiveWaterSensor:[self getActiveWaterSensorFromDictionary:platformData]];
-        [strongDelegate platformDidFinishUpdatingLowerLimitSwitchStatus:[self getLowerLimitSwitchStatusFromDictionary:platformData]];
-        [strongDelegate platformDidFinishUpdatingUpperLimitSwitchStatus:[self getUpperLimitSwitchStatusFromDictionary:platformData]];
-        [strongDelegate platformDidFinishUpdatingButtonsStatus:[self getButtonsStatesFromDictionary:platformData]];
-        [strongDelegate platformDidFinishUpdatingMovingState:[self getVlonderMovingState:platformData]];
+        data.programStateName = [self getStateFromDictionary:platformData];
+        data.activeWaterSensorName = [self getActiveWaterSensorFromDictionary:platformData];
+        data.movingStateName = [self getVlonderMovingState:platformData];
         
+        data.upperLimtSwitchStatus = [self getUpperLimitSwitchStatusFromDictionary:platformData];
+        data.lowerLimitSwitchStatus = [self getLowerLimitSwitchStatusFromDictionary:platformData];
         
+        data.buttonsStates = [self getButtonsStatesFromDictionary:platformData];
+        
+        [self.delegate platformDidFinishUpdatingData:data];        
     }
     
     else if ([url isEqual:waterUrl]) {

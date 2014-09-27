@@ -10,6 +10,7 @@
 #import "SettingsViewController.h"
 #import "TabBarController.h"
 #import "Platform.h"
+#import "PlatformData.h"
 
 @interface ViewController ()
 
@@ -17,6 +18,7 @@
 
 @implementation ViewController {
     Platform *platform;
+    PlatformData *platformData_latest;
 }
 
 #pragma mark - Action buttons from settings viewcontroller
@@ -128,56 +130,10 @@
 
 #pragma mark - Platform delegates
 
-- (void)platformDidFinishUpdatingProgramState:(NSString *)state_name {
-
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
-    
-    cell.textLabel.text = [NSString stringWithFormat:@"Program state: %@", state_name];
+- (void)platformDidFinishUpdatingData:(PlatformData *)data {
+    platformData_latest = data;
+    [self.tableView reloadData];
 }
-
-- (void)platformDidFinishUpdatingMovingState:(NSString *)moving_state {
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:0]];
-    
-    cell.textLabel.text = [NSString stringWithFormat:@"Moving state: %@", moving_state];
-}
-
-- (void)platformDidFinishUpdatingActiveWaterSensor:(NSString *)sensor_name {
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:0]];
-    
-    cell.textLabel.text = [NSString stringWithFormat:@"Active sensor: %@", sensor_name];
-}
-
-- (void)platformDidFinishUpdatingLowerLimitSwitchStatus:(BOOL)state {
-    
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:3 inSection:0]];
-    
-    NSString *text;
-    if (state)
-        text = @"Lower ls reached";
-    else
-        text = @"Lower ls not reached";
-    
-    cell.textLabel.text = text;
-}
-
-- (void)platformDidFinishUpdatingUpperLimitSwitchStatus:(BOOL)state {
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:4 inSection:0]];
-    
-    NSString *text;
-    if (state)
-        text = @"Upper ls reached";
-    else
-        text = @"Upper ls not reached";
-    
-    cell.textLabel.text = text;
-    
-}
-
-- (void)platformDidFinishUpdatingButtonsStatus:(NSArray *)buttons {
-    
-}
-
-
 
 - (void)platformDidOccurError {
     NSLog(@"PLATFORM ERRROR!!!!");
@@ -198,27 +154,38 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
     
+    if (!platformData_latest) {
+        cell.textLabel.text = @"Load data!";
+        return cell;
+    }
+    
     NSString *text;
     
     switch (indexPath.row) {
         case 0:
-            text = @"Program state: None";
+            text = [NSString stringWithFormat:@"Program state: %@", platformData_latest.programStateName];
             break;
             
         case 1:
-            text = @"Moving state: Not moving";
+            text = [NSString stringWithFormat:@"Moving state: %@", platformData_latest.movingStateName];
             break;
             
         case 2:
-            text = @"No active sensor";
+            text = [NSString stringWithFormat:@"Active sensor: %@", platformData_latest.activeWaterSensorName];
             break;
             
         case 3:
-            text = @"Lower ls not reached";
+            if (platformData_latest.lowerLimitSwitchStatus)
+                text = @"Lower ls is reached";
+            else
+                text = @"Lower ls is not reached";
             break;
             
         case 4:
-            text = @"Upper ls not reached";
+            if (platformData_latest.upperLimtSwitchStatus)
+                text = @"Upper ls is reached";
+            else
+                text = @"Upper ls is not reached";
             break;
             
         default:
